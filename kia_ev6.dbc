@@ -48,7 +48,7 @@ BO_ 80 LKAS: 16 XXX
  SG_ NEW_SIGNAL_5 : 62|1@1+ (1,0) [0|1] "" XXX
  SG_ STEER_REQ : 52|1@1+ (1,0) [0|1] "" XXX
  SG_ TORQUE_REQUEST : 41|11@1+ (1,-1024) [0|4095] "" XXX
- SG_ LDW_STATUS : 38|2@1+ (1,0) [0|255] "" XXX
+ SG_ LKA_ICON : 38|2@1+ (1,0) [0|255] "" XXX
  SG_ NEW_SIGNAL_4 : 32|1@1+ (1,0) [0|1] "" XXX
  SG_ NEW_SIGNAL_1 : 26|3@1+ (1,0) [0|255] "" XXX
  SG_ COUNTER : 16|8@1+ (1,0) [0|255] "" XXX
@@ -147,3 +147,4 @@ CM_ SG_ 961 COUNTER_ALT "only increments on change";
 CM_ SG_ 1041 COUNTER_ALT "only increments on change";
 CM_ SG_ 1043 COUNTER_ALT "only increments on change";
 VAL_ 53 GEAR 0 "P" 5 "D" 6 "N" 7 "R" ;
+VAL_ 80 LKA_ICON 0 "hidden" 1 "grey" 2 "green" 3 "flashing green" ;
