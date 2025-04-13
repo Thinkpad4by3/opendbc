@@ -71,8 +71,8 @@ class CarInterface(CarInterfaceBase):
     return float(self.neural_ff_model.predict(inputs)) + friction
 
   def torque_from_lateral_accel(self) -> TorqueFromLateralAccelCallbackType:
-    if self.CP.carFingerprint == CAR.CHEVROLET_BOLT_EUV:
-      self.neural_ff_model = NanoFFModel(NEURAL_PARAMS_PATH, self.CP.carFingerprint)
+    if self.CP.carFingerprint == CAR.CHEVROLET_VOLT:
+      self.neural_ff_model = NanoFFModel(NEURAL_PARAMS_PATH, CAR.CHEVROLET_BOLT_EUV)
       return self.torque_from_lateral_accel_neural
     elif self.CP.carFingerprint in NON_LINEAR_TORQUE_PARAMS:
       return self.torque_from_lateral_accel_siglin
@@ -143,12 +143,10 @@ class CarInterface(CarInterfaceBase):
     ret.longitudinalActuatorDelay = 0.5  # large delay to initially start braking
 
     if candidate == CAR.CHEVROLET_VOLT:
-      ret.lateralTuning.pid.kpBP = [0., 40.]
-      ret.lateralTuning.pid.kpV = [0., 0.17]
-      ret.lateralTuning.pid.kiBP = [0.]
-      ret.lateralTuning.pid.kiV = [0.]
-      ret.lateralTuning.pid.kf = 1.  # get_steer_feedforward_volt()
+      ret.minSteerSpeed = 7 * CV.MPH_TO_MS
+      ret.minEnableSpeed = -1.  # engage speed is decided by pcm
       ret.steerActuatorDelay = 0.2
+      CarInterfaceBase.configure_torque_tune(candidate, ret.lateralTuning)
 
     elif candidate == CAR.GMC_ACADIA:
       ret.minEnableSpeed = -1.  # engage speed is decided by pcm
